@@ -4,9 +4,10 @@ public enum Currency {
 
     BGN("BGN"),
     USD("USD"),
-    EUR("EUR"),
-    GBP("GBP"),
-    JPY("JPY");
+    EUR("EUR");
+
+    //    GBP("GBP"),
+//    JPY("JPY");
     private final String code;
 
 
