@@ -1,14 +1,14 @@
 package com.example.wallet.models;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.Instant;
 
 public class Wallet{
     private int id;
     private Iban iban;
     private Currency currency;
     private BigDecimal balance;
-    private LocalDate dateCreated;
+    private Instant dateCreated;
     private User owner;
 
     public User getOwner() {
@@ -19,11 +19,11 @@ public class Wallet{
         this.owner = owner;
     }
 
-    public LocalDate getDateCreated() {
+    public Instant getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDate dateCreated) {
+    public void setDateCreated(Instant dateCreated) {
         this.dateCreated = dateCreated;
     }
 

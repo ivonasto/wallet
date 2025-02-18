@@ -7,8 +7,4 @@ public interface IbanService {
     Iban generateIban();
 
     void verifyIban(Iban iban);
-
-    // otherwise isValidIban would have side effects
-    Iban removeWhitespace(Iban iban);
-
 }

@@ -22,7 +22,7 @@ public class IbanServiceImpl implements IbanService {
         // Calculate checksum based on algorithm 97-10
         BigInteger checkSum = BigInteger.valueOf(98L).subtract(ibanToNumber.mod(BigInteger.valueOf(97)));
         // Insert checksum into the IBAN
-        iban = iban.replaceFirst("00", checkSum.toString());
+        iban = iban.replaceFirst("00", String.format("%02d",checkSum));
 
         return new Iban(iban);
     }
@@ -66,14 +66,6 @@ public class IbanServiceImpl implements IbanService {
         if (!(modCheck.equals(BigInteger.ONE))) {
             throw new InvalidIbanException("Invalid IBAN.");
         }
-
-
-    }
-
-    @Override
-    public Iban removeWhitespace(Iban iban) {
-        iban.setIban(iban.getIban().replace(" ", ""));
-        return iban;
     }
 
     private String generateIbanWithoutCheckSum() {
