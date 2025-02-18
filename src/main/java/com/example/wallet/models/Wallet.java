@@ -5,8 +5,6 @@ import java.time.LocalDate;
 
 public class Wallet{
     private int id;
-
-
     private Iban iban;
     private Currency currency;
     private BigDecimal balance;
