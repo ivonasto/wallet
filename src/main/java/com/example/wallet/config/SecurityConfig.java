@@ -1,6 +1,5 @@
 package com.example.wallet.config;
 
-
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -17,14 +16,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -35,6 +32,7 @@ import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+///  Based on <a href= https://github.com/danvega/jwt/tree/master>JWT repository by Dan Vega</a>
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -44,11 +42,6 @@ public class SecurityConfig {
 
     public SecurityConfig(RsaKeyProperties jwtConfigProperties) {
         this.jwtConfigProperties = jwtConfigProperties;
-    }
-
-    @Bean
-    public InMemoryUserDetailsManager users() {
-        return new InMemoryUserDetailsManager(User.withUsername("thorfinn").password("{noop}password").authorities("read").build());
     }
 
     @Bean
@@ -64,10 +57,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    /*
-     * This was added via PR (thanks to @ch4mpy)
-     * This will allow the /token endpoint to use basic auth and everything else uses the SFC above
-     */
     @Order(Ordered.HIGHEST_PRECEDENCE)
     @Bean
     SecurityFilterChain tokenSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -96,7 +85,6 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwks);
     }
 
-
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -107,4 +95,5 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 }

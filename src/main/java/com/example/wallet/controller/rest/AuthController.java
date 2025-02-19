@@ -7,6 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+///  Based on <a href= https://github.com/danvega/jwt/tree/master>JWT repo by Dan Vega</a>
+
 @RestController
 public class AuthController {
 

@@ -18,6 +18,7 @@ class CurrencyServiceImplTest {
         return a.subtract(b).abs().compareTo(BigDecimal.valueOf(eps)) < 0;
     }
 
+
     @InjectMocks
     private CurrencyServiceImpl currencyService;
 

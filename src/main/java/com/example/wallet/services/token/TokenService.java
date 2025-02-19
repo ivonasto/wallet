@@ -11,6 +11,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 
+///  Based on <a href= https://github.com/danvega/jwt/tree/master>JWT repo by Dan Vega</a>
+
 @Service
 public class TokenService {
 
