@@ -7,5 +7,5 @@ import jakarta.validation.constraints.Positive;
 
 
 import java.math.BigDecimal;
-// TODO check if @Positive works
-public record DepositRequest(Iban sender, Iban receiver, @Positive @NotEmpty BigDecimal amount, Currency currency ) {}
+
+public record DepositRequest(Iban sender, Iban receiver, @Positive BigDecimal amount, Currency currency ) {}

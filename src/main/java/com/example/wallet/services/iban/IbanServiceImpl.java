@@ -67,7 +67,6 @@ public class IbanServiceImpl implements IbanService {
             throw new InvalidIbanException("Invalid IBAN.");
         }
     }
-
     private String generateIbanWithoutCheckSum() {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         return "WT00" + uuid.substring(0, 16).toUpperCase();

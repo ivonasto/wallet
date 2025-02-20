@@ -3,9 +3,11 @@ package com.example.wallet.mappers;
 import com.example.wallet.dtos.DepositRequest;
 import com.example.wallet.dtos.WithdrawRequest;
 import com.example.wallet.models.Transaction;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
+@Component
 public class TransactionMapper {
 
     public Transaction fromDepositRequest(DepositRequest depositRequest) {

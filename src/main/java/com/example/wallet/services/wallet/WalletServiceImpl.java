@@ -37,10 +37,17 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public void create(Wallet wallet, String username){
         User owner = userDetailsService.findByUsername(username);
-        wallet.setIban(ibanService.generateIban());
+        Iban iban = ibanService.generateIban();
+
+        while(walletRepository.get(iban.getIban()).isPresent()){
+            iban = ibanService.generateIban();
+        }
+
+        wallet.setIban(iban);
         wallet.setOwner(owner);
         walletRepository.save(wallet);
     }
+
     @Override
     public Wallet getById(Long id) {
         Optional<Wallet> wallet = walletRepository.findById(id);
@@ -53,17 +60,18 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Wallet get(Iban iban) {
-        Optional<Wallet> wallet = walletRepository.get(iban);
+        Optional<Wallet> wallet = walletRepository.get(iban.getIban());
         if(wallet.isPresent()) {
             return wallet.get();
         }
-        throw new WalletNotFoundException(String.format("Wallet with IBAN %s not found", iban));
+        throw new WalletNotFoundException(iban);
     }
 
     @Override
     public void deposit(Wallet wallet, BigDecimal amount, Currency currency) {
         BigDecimal amountInWalletCurrency = currencyService.convert(amount, currency, wallet.getCurrency());
         wallet.setBalance(wallet.getBalance().add(amountInWalletCurrency));
+        walletRepository.save(wallet);
     }
 
     @Override
@@ -74,11 +82,12 @@ public class WalletServiceImpl implements WalletService {
             throw new NotEnoughFundsException(wallet);
         }
         wallet.setBalance(wallet.getBalance().subtract(amountInWalletCurrency));
+        walletRepository.save(wallet);
     }
 
     @Override
     public List<Wallet> getAll(String username) {
-        return walletRepository.findAll();
+        return walletRepository.findAll(username);
     }
 
 }

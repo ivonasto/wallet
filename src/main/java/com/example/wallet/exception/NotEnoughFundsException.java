@@ -9,6 +9,6 @@ public class NotEnoughFundsException extends RuntimeException {
     }
 
     public NotEnoughFundsException(Wallet wallet) {
-        super(String.format("Wallet with Iban %s does not have enough funds.", wallet.getIban()));
+        super(String.format("Wallet with IBAN: %s does not have enough funds.", wallet.getIban().getIban()));
     }
 }

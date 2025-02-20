@@ -6,10 +6,7 @@ public enum Currency {
     USD("USD"),
     EUR("EUR");
 
-    //    GBP("GBP"),
-//    JPY("JPY");
     private final String code;
-
 
     Currency(String code) {
         this.code = code;

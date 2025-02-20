@@ -21,9 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO send error when token expired
 @RestController
-@RequestMapping("api/v1/wallet")
+@RequestMapping("/api/v1/wallet")
 public class WalletController {
 
     private final WalletService walletService;
@@ -39,14 +38,15 @@ public class WalletController {
         try {
             return walletService.getById(id);
         } catch (WalletNotFoundException e) {
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
     @GetMapping
     public ResponseEntity<?> getAll(Principal principal) {
+        System.out.println(principal.getName());
         List<Wallet> wallets = walletService.getAll(principal.getName());
-        if (wallets.isEmpty()){
+        if (wallets.isEmpty()) {
             return ResponseEntity.ok("You have no wallets");
         }
         return ResponseEntity.ok(wallets);
@@ -56,7 +56,7 @@ public class WalletController {
     @PostMapping("/new")
     public void create(@Valid @RequestBody CreateWalletRequest createWalletRequest, Principal principal) {
         Wallet wallet = walletMapper.fromWalletRequest(createWalletRequest);
-        walletService.create(wallet,principal.getName());
+        walletService.create(wallet, principal.getName());
 
     }
 
@@ -69,8 +69,4 @@ public class WalletController {
         error.put("status", String.valueOf(status.value()));
         return ResponseEntity.status(status).body(error);
     }
-
-
-
-
 }

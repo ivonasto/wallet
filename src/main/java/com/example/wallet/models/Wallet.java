@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 
 @Entity
@@ -49,7 +50,7 @@ public class Wallet{
     }
 
     public BigDecimal getBalance() {
-        return balance;
+       return balance.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setBalance(BigDecimal balance) {
