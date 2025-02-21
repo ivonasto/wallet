@@ -2,9 +2,9 @@
 1. [Introduction](#1-introduction)
 2. [Deployment](#2-deployment)
 3. [API overview](#3-api-overview)
-   - [OpenApi Docs](#openapi-docs)
+   - [OpenApi Docs](#31-openapi-docs)
    - [Start here](#32-start-here)
-   - [Postman](#postman)
+   - [Postman](#33-postman)
 4. [Technologies used](#4-technologies-used)
 5. [Limitations](#5-limitations)
 
