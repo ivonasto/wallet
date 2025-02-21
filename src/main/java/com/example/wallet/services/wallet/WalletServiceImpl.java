@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@PropertySource("classpath:messages.properties")
 public class WalletServiceImpl implements WalletService {
 
     CurrencyService currencyService;

@@ -6,6 +6,8 @@ import com.example.wallet.mappers.WalletMapper;
 import com.example.wallet.models.Currency;
 import com.example.wallet.models.Wallet;
 import com.example.wallet.services.wallet.WalletService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +55,7 @@ public class WalletController {
 
     }
 
+    @Operation(parameters = @Parameter(name="currency",description = "Currency from set {EUR,BGN,USD}"))
     @PostMapping("/new")
     public void create(@Valid @RequestBody CreateWalletRequest createWalletRequest, Principal principal) {
         Wallet wallet = walletMapper.fromWalletRequest(createWalletRequest);

@@ -2,7 +2,6 @@ package com.example.wallet.services.currency;
 
 import com.example.wallet.models.Currency;
 import com.example.wallet.util.Pair;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@PropertySource("classpath:wallet.properties")
 public class CurrencyServiceImpl implements CurrencyService {
     private final Map<Pair<Currency, Currency>, BigDecimal> exchangeRates = new HashMap<>();
 

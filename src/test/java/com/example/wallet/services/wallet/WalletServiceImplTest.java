@@ -149,11 +149,11 @@ class WalletServiceImplTest {
 
         List<Wallet> wallets = List.of(wallet, wallet2);
 
-        when(walletRepository.findAll()).thenReturn(wallets);
+        when(walletRepository.findAll(user.getUsername())).thenReturn(wallets);
 
         List<Wallet> result = walletService.getAll(user.getUsername());
 
         Assertions.assertEquals(2, result.size());
-        Mockito.verify(walletRepository, times(1)).findAll();
+        Mockito.verify(walletRepository, times(1)).findAll(user.getUsername());
     }
 }

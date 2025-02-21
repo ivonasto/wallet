@@ -7,6 +7,7 @@ import com.example.wallet.exception.UsernameExistsException;
 import com.example.wallet.mappers.UserMapper;
 import com.example.wallet.models.User;
 import com.example.wallet.services.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +27,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(description = "Start here. Create a user and password, which will be used to generate a token")
     @PostMapping()
     public void createUser(@RequestBody CreateUserRequest createUserRequest) {
         UserDetails user = userMapper.fromCreateUserRequest(createUserRequest);

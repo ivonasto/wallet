@@ -8,6 +8,8 @@ import com.example.wallet.exception.WalletNotFoundException;
 import com.example.wallet.mappers.TransactionMapper;
 import com.example.wallet.models.Transaction;
 import com.example.wallet.services.transaction.TransactionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,7 @@ public class TransactionController {
         this.transactionMapper = transactionMapper;
     }
 
+    @Operation(parameters = {@Parameter(name = "sender", description = "Account sending funds. Can be internal or external. If present in the app, should have enough funds"), @Parameter(name = "receiver", description = "Account receiving funds. Should be present in the app"), @Parameter(name = "amount", description = "Amount to be transferred. Should be positive"), @Parameter(name = "currency", description = "From set {EUR,BGN,USD}")})
     @PostMapping("/deposit")
     public void deposit(@Valid @RequestBody DepositRequest depositRequest) {
         Transaction transaction = transactionMapper.fromDepositRequest(depositRequest);
@@ -48,11 +50,10 @@ public class TransactionController {
 
     }
 
+    @Operation(parameters = {@Parameter(name = "remitter", description = "Account to withdraw funds from. Should be present in the app and have enough funds."), @Parameter(name = "beneficiary", description = "Account receiving funds. Can be internal or external."), @Parameter(name = "amount", description = "Amount to be transferred. Should be positive"), @Parameter(name = "currency", description = "From set {EUR,BGN,USD}")})
     @PostMapping("/withdraw")
     public void withdraw(@Valid @RequestBody WithdrawRequest withdrawRequest) {
         Transaction transaction = transactionMapper.fromWithdrawRequest(withdrawRequest);
-        // check if remitter is the same as user , else authorization exception
-
         try {
             transactionService.withdraw(transaction);
         } catch (WalletNotFoundException ex) {
@@ -60,7 +61,6 @@ public class TransactionController {
         } catch (NotEnoughFundsException | InvalidTransactionException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
-
 
     }
 
