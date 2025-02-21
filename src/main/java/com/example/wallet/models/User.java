@@ -27,21 +27,13 @@ public class User implements UserDetails {
         this.wallets = new ArrayList<>();
     }
 
-    @JsonIgnore
-    public List<Wallet> getWallets() {
-        return wallets;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
     public User(int user_id, String username, String password, List<Wallet> wallets) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.wallets = wallets;
     }
+
 
     public int getId() {
         return user_id;
@@ -54,6 +46,20 @@ public class User implements UserDetails {
     public String getUsername() {
         return username;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @JsonIgnore
+    public List<Wallet> getWallets() {
+        return wallets;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -73,10 +79,6 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override

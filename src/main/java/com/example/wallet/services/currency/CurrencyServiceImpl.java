@@ -33,5 +33,4 @@ public class CurrencyServiceImpl implements CurrencyService {
     public BigDecimal convert(BigDecimal amount, Currency fromCurrency, Currency toCurrency) {
         return getExchangeRate(fromCurrency, toCurrency).multiply(amount);
     }
-
 }

@@ -41,6 +41,7 @@ public class UserController {
 
     }
 
+    @Operation(description = "Fetch information about the given username. If the authenticated user is another, the password is blurred.")
     @GetMapping("/{username}")
     public UserResponse get(@PathVariable String username, Principal principal) {
         boolean principalIsUser = principal.getName().equals(username);

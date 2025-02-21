@@ -35,6 +35,7 @@ public class WalletController {
         this.walletMapper = walletMapper;
     }
 
+    @Operation(description = "Returns the wallet with the provided id.")
     @GetMapping("/{id}")
     public Wallet get(@PathVariable Long id) {
         try {
@@ -44,6 +45,7 @@ public class WalletController {
         }
     }
 
+    @Operation(description = "Returns all wallets of the currently authenticated user.")
     @GetMapping
     public ResponseEntity<?> getAll(Principal principal) {
         System.out.println(principal.getName());
@@ -55,7 +57,7 @@ public class WalletController {
 
     }
 
-    @Operation(parameters = @Parameter(name="currency",description = "Currency from set {EUR,BGN,USD}"))
+    @Operation(description = "Creates a new wallet for the currently authenticated user.", parameters = @Parameter(name = "currency", description = "Currency from set {EUR,BGN,USD}"))
     @PostMapping("/new")
     public void create(@Valid @RequestBody CreateWalletRequest createWalletRequest, Principal principal) {
         Wallet wallet = walletMapper.fromWalletRequest(createWalletRequest);

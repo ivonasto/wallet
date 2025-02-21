@@ -34,13 +34,14 @@ import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-///  Based on <a href= https://github.com/danvega/jwt/tree/master>JWT repository by Dan Vega</a>
+/// Setups authentication filtering and related configurations for spring security.
+/// Based on <a href= https://github.com/danvega/jwt/tree/master>JWT repository by Dan Vega</a>
 @Configuration
 @EnableWebSecurity(debug = true)
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final   RsaKeyProperties jwtConfigProperties;
+    private final RsaKeyProperties jwtConfigProperties;
 
     public SecurityConfig(RsaKeyProperties jwtConfigProperties) {
         this.jwtConfigProperties = jwtConfigProperties;
@@ -50,8 +51,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/users","/error", "/swagger-ui.html","/swagger-ui/**","/v3/api-docs*/**").permitAll()
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/api/v1/users", "/error", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs*/**")
+                                .permitAll()
+                                .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .exceptionHandling(

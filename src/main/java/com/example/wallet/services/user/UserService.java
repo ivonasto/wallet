@@ -6,5 +6,4 @@ import org.springframework.security.provisioning.UserDetailsManager;
 
 public interface UserService extends UserDetailsService, UserDetailsManager {
     User findByUsername(String username);
-
 }

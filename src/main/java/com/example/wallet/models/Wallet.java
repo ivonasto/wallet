@@ -72,6 +72,7 @@ public class Wallet{
     public void setId(int id) {
         this.id = id;
     }
+
     public void setIban(Iban iban) {
         this.iban = iban;
     }

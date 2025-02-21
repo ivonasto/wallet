@@ -10,11 +10,11 @@ import java.time.Instant;
 @Component
 public class WalletMapper {
 
-   public Wallet fromWalletRequest(CreateWalletRequest createWalletRequest){
-      Wallet wallet = new Wallet();
-      wallet.setCurrency(createWalletRequest.currency());
-      wallet.setDateCreated(Instant.now());
-      wallet.setBalance(BigDecimal.ZERO);
-      return wallet;
-   }
+    public Wallet fromWalletRequest(CreateWalletRequest createWalletRequest) {
+        Wallet wallet = new Wallet();
+        wallet.setCurrency(createWalletRequest.currency());
+        wallet.setDateCreated(Instant.now());
+        wallet.setBalance(BigDecimal.ZERO);
+        return wallet;
+    }
 }

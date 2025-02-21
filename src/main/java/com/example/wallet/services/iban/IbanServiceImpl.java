@@ -7,7 +7,6 @@ import com.example.wallet.exception.InvalidIbanException;
 import java.math.BigInteger;
 import java.util.UUID;
 
-// TODO fix error messages -> not hardcoded
 @Service
 public class IbanServiceImpl implements IbanService {
 

@@ -11,7 +11,6 @@ import com.example.wallet.services.currency.CurrencyService;
 
 import com.example.wallet.services.iban.IbanService;
 import com.example.wallet.services.user.UserService;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,7 +23,7 @@ public class WalletServiceImpl implements WalletService {
     CurrencyService currencyService;
     IbanService ibanService;
     UserService userDetailsService;
-    WalletRepository  walletRepository;
+    WalletRepository walletRepository;
 
     public WalletServiceImpl(CurrencyService currencyService, IbanService ibanService, UserService userDetailsService, WalletRepository walletRepository) {
         this.currencyService = currencyService;
@@ -34,11 +33,11 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public void create(Wallet wallet, String username){
+    public void create(Wallet wallet, String username) {
         User owner = userDetailsService.findByUsername(username);
         Iban iban = ibanService.generateIban();
 
-        while(walletRepository.get(iban.getIban()).isPresent()){
+        while (walletRepository.get(iban.getIban()).isPresent()) {
             iban = ibanService.generateIban();
         }
 
@@ -52,7 +51,7 @@ public class WalletServiceImpl implements WalletService {
         Optional<Wallet> wallet = walletRepository.findById(id);
         if (wallet.isPresent()) {
             return wallet.get();
-        }else {
+        } else {
             throw new WalletNotFoundException(String.format("Wallet with id %s not found", id));
         }
     }
@@ -60,7 +59,7 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Wallet get(Iban iban) {
         Optional<Wallet> wallet = walletRepository.get(iban.getIban());
-        if(wallet.isPresent()) {
+        if (wallet.isPresent()) {
             return wallet.get();
         }
         throw new WalletNotFoundException(iban);

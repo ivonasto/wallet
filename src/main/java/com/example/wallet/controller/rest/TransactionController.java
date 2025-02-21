@@ -34,7 +34,7 @@ public class TransactionController {
         this.transactionMapper = transactionMapper;
     }
 
-    @Operation(parameters = {@Parameter(name = "sender", description = "Account sending funds. Can be internal or external. If present in the app, should have enough funds"), @Parameter(name = "receiver", description = "Account receiving funds. Should be present in the app"), @Parameter(name = "amount", description = "Amount to be transferred. Should be positive"), @Parameter(name = "currency", description = "From set {EUR,BGN,USD}")})
+    @Operation(parameters = {@Parameter(name = "sender", description = "Account sending funds. Can be internal or external. If present in the app, should have enough funds."), @Parameter(name = "receiver", description = "Account receiving funds. Must be present in the app."), @Parameter(name = "amount", description = "Amount to be transferred. Must be positive."), @Parameter(name = "currency", description = "From set {EUR,BGN,USD}")})
     @PostMapping("/deposit")
     public void deposit(@Valid @RequestBody DepositRequest depositRequest) {
         Transaction transaction = transactionMapper.fromDepositRequest(depositRequest);
@@ -46,11 +46,9 @@ public class TransactionController {
         } catch (NotEnoughFundsException | InvalidTransactionException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
-
-
     }
 
-    @Operation(parameters = {@Parameter(name = "remitter", description = "Account to withdraw funds from. Should be present in the app and have enough funds."), @Parameter(name = "beneficiary", description = "Account receiving funds. Can be internal or external."), @Parameter(name = "amount", description = "Amount to be transferred. Should be positive"), @Parameter(name = "currency", description = "From set {EUR,BGN,USD}")})
+    @Operation(parameters = {@Parameter(name = "remitter", description = "Account to withdraw funds from. Must be present in the app and have enough funds."), @Parameter(name = "beneficiary", description = "Account receiving funds. Can be internal or external."), @Parameter(name = "amount", description = "Amount to be transferred from remitter to beneficiary. Must be positive."), @Parameter(name = "currency", description = "From set {EUR,BGN,USD}")})
     @PostMapping("/withdraw")
     public void withdraw(@Valid @RequestBody WithdrawRequest withdrawRequest) {
         Transaction transaction = transactionMapper.fromWithdrawRequest(withdrawRequest);
@@ -61,7 +59,6 @@ public class TransactionController {
         } catch (NotEnoughFundsException | InvalidTransactionException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
-
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, HttpMessageNotReadableException.class})

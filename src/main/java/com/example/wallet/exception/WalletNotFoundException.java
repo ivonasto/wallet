@@ -11,9 +11,8 @@ public class WalletNotFoundException extends RuntimeException {
     public WalletNotFoundException(Wallet wallet) {
         super("Wallet with IBAN:" + wallet.getIban().getIban() + " not found in our system");
     }
+
     public WalletNotFoundException(Iban iban) {
         super("Wallet with IBAN: " + iban.getIban() + " not found in our system");
     }
-
-
 }
