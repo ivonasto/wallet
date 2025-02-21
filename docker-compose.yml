@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb-compose
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - mariadb_network
+
+networks:
+  mariadb_network:
+    driver: bridge
+

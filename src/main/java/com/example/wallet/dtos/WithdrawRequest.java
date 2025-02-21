@@ -2,9 +2,16 @@ package com.example.wallet.dtos;
 
 import com.example.wallet.models.Currency;
 import com.example.wallet.models.Iban;
-import jakarta.validation.constraints.NotEmpty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
-// TODO check if @Positive works
-public record WithdrawRequest(Iban remitter, Iban beneficiary, @Positive @NotEmpty BigDecimal amount, Currency currency) { }
+
+public record WithdrawRequest(
+        @Schema(type = "string")
+        Iban remitter,
+        @Schema(type = "string")
+        Iban beneficiary,
+        @Positive BigDecimal amount,
+        Currency currency) {
+}

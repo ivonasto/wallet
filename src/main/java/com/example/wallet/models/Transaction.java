@@ -1,14 +1,31 @@
 package com.example.wallet.models;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 
+@Entity
+@Table(name = "transactions")
 public class Transaction {
-    Iban sender;
-    Iban recipient;
-    BigDecimal amount;
-    Currency currency;
-    Instant createdAt;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
+    private Long id;
+
+    @AttributeOverride(name = "iban", column = @Column(name = "sender"))
+    private Iban sender;
+
+    @AttributeOverride(name = "iban", column = @Column(name = "recipient"))
+    private Iban recipient;
+
+    private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
+    @Column(name = "date_of_creation")
+    private Instant createdAt;
 
     public Transaction() {
     }
@@ -59,5 +76,13 @@ public class Transaction {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
