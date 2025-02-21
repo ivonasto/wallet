@@ -1,4 +1,14 @@
-## 1. Introduction 
+## Summary of Contents:
+1. [Introduction](#1-introduction)
+2. [Deployment](#2-deployment)
+3. [API overview](#3-api-overview)
+   - [OpenApi Docs](#openapi-docs)
+   - [Postman](#postman)
+4. [Technologies used](#4-technologies-used)
+5. [Limitations](#5-limitations)
+
+
+## 1. Introduction
 This is a rudimentary wallet REST app, which supports the following features:
    - user creation 
    - user login and token exchange {basic auth}
@@ -11,7 +21,7 @@ The app supports three currencies [EUR,BGN,USD].
 When making transactions, funds are converted at flat rates if the currency differs from the target wallet’s.
 
 #### IBAN
-Each wallet has an associated IBAN, which follows the [ISO 7064 standard](#IBAN validation). 
+Each wallet has an associated IBAN, which follows the [ISO 7064 standard](#iban-validation). 
 The structure of an IBAN in the app is as follows: "WT" + "mod 97 checksum" + "UUID.substring(0,16)" 
 
 
@@ -51,8 +61,9 @@ B) via IntelliJ
 - run by starting `WalletApplication`
    
 
-## 3. API overview 
+## 3. API overview
 
+##### OpenApi Docs
 The full API documentation is available through the Swagger UI, once the app is running:
 
 [Swagger UI](http://localhost:8080/swagger-ui/index.html)
@@ -65,6 +76,7 @@ The API uses JWT for authentication. In order to access the endpoints, the follo
 2. Generate a token using the `POST /token` and user details created at step 1 with `Authorization: Basic <base64_encoded_username:password>`
 3. Access the rest of the app with the token in `Authorization: Bearer <token>`
 
+##### Postman
 Postman examples for this are provided in the following collection - [postman_collection.json](Postman_collection.json). 
 
 Start from the "Initialize postman vars" folder. It does the following:
